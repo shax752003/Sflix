@@ -3,6 +3,27 @@ import pickle
 import pandas as pd
 import requests
 
+
+
+
+
+def add_bg_from_url():
+    st.markdown(
+         f"""
+         <style>
+         .stApp {{
+             background-image: url("https://cdn.wallpapersafari.com/18/62/XV3iUF.jpg");
+             background-attachment: fixed;
+             background-size: cover
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+
+add_bg_from_url()
+
+
 def fetch_poster(movie_id):
     response = requests.get('https://api.themoviedb.org/3/movie/{}?api_key=b12aa3c682f78e930ad0971e27f7468d&language=en-US'.format(movie_id))
     data = response.json()
@@ -31,9 +52,15 @@ similarity = pickle.load(open('similarity.pkl','rb'))
 movies = pd.DataFrame(movie_dict)
 
 
-st.title('Movie Recommender System - Sflix')
+new_title = '<p style="font-family:Bahnschrift; color:Green; font-size: 50px;  ">Movie Recommender System</p>'
+st.markdown(new_title, unsafe_allow_html=True)
+st.markdown(""" <style> .font {
+font-size:100px ; font-family: 'Freestyle Script'; color: #e3e6e4;} 
+</style> """, unsafe_allow_html=True)
+st.markdown('<p class="font">Sflix</p>', unsafe_allow_html=True)
+
 selected_movie_name = st.selectbox(
-     'enter the movie name and find the suitable movie of your taste',
+     'Enter the movie name and find the suitable movie of your taste',
      movies['title'].values)
 
 
